@@ -6,6 +6,8 @@ public class StringCalculator {
         String[] split1 = input.split("");
         if("/".equals(split1[0]) && "/".equals(split1[1]) && "\\".equals(split1[4]) && "n".equals(split1[5])){
             String separator = split1[2];
+
+
         }
 
 

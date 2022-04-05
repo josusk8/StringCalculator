@@ -27,7 +27,9 @@ public class StringCalculatorShould {
 
         assertEquals(0, StringCalculator.calculate(""));
 
+
     }
+
     @Test
     void handle_entry_non_numbers() {
         assertEquals(0, StringCalculator.calculate("C"));
@@ -39,6 +41,7 @@ public class StringCalculatorShould {
         assertEquals(6, StringCalculator.calculate("1\n2,3"));
         assertEquals(7, StringCalculator.calculate("1\n2,3\n1"));
     }
+
 
     @Test
     void define_delimiter_on_entry() {
