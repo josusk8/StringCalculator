@@ -46,6 +46,7 @@ public class StringCalculatorShould {
     @Test
     void define_delimiter_on_entry() {
         assertEquals(3, StringCalculator.calculate("//;\n1;2"));
+        assertEquals(3, StringCalculator.calculate("//*\n1*2"));
 
     }
 
