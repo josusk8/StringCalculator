@@ -1,31 +1,27 @@
 public class StringCalculator {
 
 
-    static int calculate(String raw) {
-
+    public int sum(String sequence) {
         int result = 0;
-        if (raw.equals("") || raw.matches("[A-Za-z]")) {
-            return result;
+        String regex = ",|\\n";
+
+        if (sequence.isEmpty()) {
+            return 0;
         }
 
-        String[] split1 = raw.split("");
-        String separator = ",";
-        int size = raw.length();
+        if(sequence.startsWith("//")){
+            String[] splitSequence = sequence.split("\n", 2);
+            sequence = splitSequence[1];
+            regex = splitSequence[0].substring(2);
+            //regex = splitSequence[0].replace("//","");
 
-
-        if ("/".equals(split1[0]) && "/".equals(split1[1]) && "\n".equals(split1[3])) {
-            separator = split1[2];
-            System.out.println("Separador: " + separator);
-            raw = raw.substring(4, size);
-            System.out.println("Raw: " + raw);
         }
 
-        String[] splited = raw.split("[" + separator + "|\n]");
+        String[] numbers = sequence.split(regex);
 
-        for (String split : splited) {
-            result += Integer.parseInt(split);
+        for (String number : numbers) {
+            result += Integer.parseInt(number);
         }
-
 
         return result;
     }
