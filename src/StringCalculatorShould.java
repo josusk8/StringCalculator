@@ -1,7 +1,9 @@
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static java.lang.Long.sum;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /*
  *TO-DO List
@@ -24,32 +26,57 @@ public class StringCalculatorShould {
     }
 
     @Test
-    void when_empty_return_0(){
+    void when_empty_return_0() {
         assertEquals(0, stringCalculator.sum(""));
     }
 
     @Test
-    void when_have_more_than_one_element_return_sum(){
+    void when_have_more_than_one_element_return_sum() {
         assertEquals(3, stringCalculator.sum("1,2"));
         assertEquals(6, stringCalculator.sum("1,2,3"));
     }
 
     @Test
-    void when_have_more_than_one_element_with_brake_line_return_sum(){
+    void when_have_more_than_one_element_with_brake_line_return_sum() {
         assertEquals(6, stringCalculator.sum("1,2\n3"));
     }
 
     @Test
-    void if_delimiter_is_specified_change_delimiter(){
+    void if_delimiter_is_specified_change_delimiter() {
         assertEquals(6, stringCalculator.sum("//;\n1;2;3"));
+        assertEquals(6, stringCalculator.sum("//&;\n1&;2&;3"));
     }
 
     @Test
-    void when_numbers_are_negative_throw_exception(){
+    void when_numbers_are_negative_throw_exception() {
 
+        IllegalArgumentException thrown = Assertions.assertThrows(IllegalArgumentException.class, () ->
+        {
+            stringCalculator.sum("-3");
+        });
+
+        assertEquals("negatives not allowed: -3", thrown.getMessage());
     }
 
 
+    @Test
+    void when_numbers_are_negative_throw_exception_for_every_number() {
 
+        IllegalArgumentException thrown = Assertions.assertThrows(IllegalArgumentException.class, () ->
+        {
+            stringCalculator.sum("-3,-4");
+        });
 
+        assertEquals("negatives not allowed: -3 -4", thrown.getMessage());
+    }
+
+    @Test
+    void exclude_numbers_more_bigger_than_1000() {
+        assertEquals(2, stringCalculator.sum("1001,2"));
+    }
+
+    @Test
+    void if_delimiter_is_specified_change_delimiter_with_any_length() {
+        assertEquals(6, stringCalculator.sum("//[***]\n1***2***3"));
+    }
 }
